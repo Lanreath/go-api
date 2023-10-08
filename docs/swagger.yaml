@@ -1,0 +1,617 @@
+basePath: /api/v1
+definitions:
+  model.AddCategory:
+    properties:
+      name:
+        type: string
+    type: object
+  model.AddComment:
+    properties:
+      content:
+        type: string
+      recipeID:
+        type: integer
+      subject:
+        type: string
+      userID:
+        type: integer
+    type: object
+  model.AddRecipe:
+    properties:
+      categoryID:
+        type: integer
+      ingredients:
+        type: string
+      name:
+        type: string
+      steps:
+        type: string
+      userID:
+        type: integer
+    type: object
+  model.AddUser:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  model.Category:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  model.Comment:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      recipeID:
+        type: integer
+      subject:
+        type: string
+      userID:
+        type: integer
+    type: object
+  model.Recipe:
+    properties:
+      categoryID:
+        type: integer
+      creationDate:
+        type: string
+      id:
+        type: integer
+      ingredients:
+        type: string
+      name:
+        type: string
+      steps:
+        type: string
+      userID:
+        type: integer
+    type: object
+  model.UpdateCategory:
+    properties:
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  model.UpdateComment:
+    properties:
+      content:
+        type: string
+      id:
+        type: integer
+      subject:
+        type: string
+    type: object
+  model.UpdateRecipe:
+    properties:
+      categoryID:
+        type: integer
+      id:
+        type: integer
+      ingredients:
+        type: string
+      name:
+        type: string
+      steps:
+        type: string
+    type: object
+  model.UpdateUser:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  model.User:
+    properties:
+      creationDate:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+host: localhost:8080
+info:
+  contact: {}
+  description: This is a sample server Foodconnect server.
+  title: Foodconnect API
+  version: "1"
+paths:
+  /categories:
+    get:
+      consumes:
+      - application/json
+      description: Get all categories
+      parameters:
+      - description: Search query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Category'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get all categories
+      tags:
+      - categories
+    post:
+      consumes:
+      - application/json
+      description: Create a category
+      parameters:
+      - description: Category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddCategory'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Create a category
+      tags:
+      - categories
+  /categories/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a category
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Delete a category
+      tags:
+      - categories
+    get:
+      consumes:
+      - application/json
+      description: Get a category by ID
+      parameters:
+      - description: Category ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Category'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get a category
+      tags:
+      - categories
+    put:
+      consumes:
+      - application/json
+      description: Update a category
+      parameters:
+      - description: Category
+        in: body
+        name: category
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateCategory'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Category'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update a category
+      tags:
+      - categories
+  /comments:
+    get:
+      consumes:
+      - application/json
+      description: Get all comments
+      parameters:
+      - description: Search query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Comment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get all comments
+      tags:
+      - comments
+    post:
+      consumes:
+      - application/json
+      description: Create a comment
+      parameters:
+      - description: Comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddComment'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Create a comment
+      tags:
+      - comments
+    put:
+      consumes:
+      - application/json
+      description: Update a comment
+      parameters:
+      - description: Comment
+        in: body
+        name: comment
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateComment'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update a comment
+      tags:
+      - comments
+  /comments/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a comment
+      parameters:
+      - description: Comment ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Delete a comment
+      tags:
+      - comments
+  /recipes:
+    get:
+      consumes:
+      - application/json
+      description: Get all recipes
+      parameters:
+      - description: Search query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.Recipe'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get all recipes
+      tags:
+      - recipes
+    post:
+      consumes:
+      - application/json
+      description: Create a recipe
+      parameters:
+      - description: Recipe
+        in: body
+        name: recipe
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddRecipe'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.Recipe'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Create a recipe
+      tags:
+      - recipes
+  /recipes/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a recipe
+      parameters:
+      - description: Recipe ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Delete a recipe
+      tags:
+      - recipes
+    get:
+      consumes:
+      - application/json
+      description: Get a recipe by ID
+      parameters:
+      - description: Recipe ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Recipe'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get a recipe
+      tags:
+      - recipes
+    put:
+      consumes:
+      - application/json
+      description: Update a recipe
+      parameters:
+      - description: Recipe
+        in: body
+        name: recipe
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateRecipe'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.Recipe'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update a recipe
+      tags:
+      - recipes
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Get all users
+      parameters:
+      - description: Search query
+        in: query
+        name: q
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.User'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get all users
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Create a user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Create a user
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete a user
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Delete a user
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Get a user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get a user
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Update a user
+      parameters:
+      - description: User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.UpdateUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.User'
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Update a user
+      tags:
+      - users
+swagger: "2.0"
