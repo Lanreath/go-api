@@ -17,7 +17,7 @@ import (
 //	@version		1
 //	@description	This is a sample server Foodconnect server.
 
-//	@host		localhost:8080
+//	@host		localhost:5000
 //	@BasePath	/api/v1
 
 //	@externalDocs.description	OpenAPI
