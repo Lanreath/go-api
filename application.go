@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	_ "github.com/Lanreath/go-api/docs"
+	"github.com/gin-contrib/cors"
 
 	"github.com/Lanreath/go-api/controller"
 
@@ -24,18 +25,16 @@ import (
 
 func main() {
 	fmt.Println("Running...")
-	fmt.Println("Initializing router...")
 	router := gin.Default()
-	fmt.Println("Initializing controller...")
 	c := controller.NewController()
-
+	router.Use(cors.Default())
 	v1 := router.Group("/api/v1")
 	{
 		users := v1.Group("/users")
 		{
 			users.GET("", c.GetUsers)
 			users.GET("/:id", c.GetUser)
-			users.POST("/users", c.PostUser)
+			users.POST("", c.PostUser)
 			users.PUT("/:id", c.PutUser)
 			users.DELETE("/:id", c.DeleteUser)
 		}
@@ -43,7 +42,7 @@ func main() {
 		{
 			recipes.GET("", c.GetRecipes)
 			recipes.GET("/:id", c.GetRecipe)
-			recipes.POST("/recipes", c.PostRecipe)
+			recipes.POST("", c.PostRecipe)
 			recipes.PUT("/:id", c.PutRecipe)
 			recipes.DELETE("/:id", c.DeleteRecipe)
 		}
@@ -51,7 +50,7 @@ func main() {
 		{
 			comments.GET("", c.GetComments)
 			comments.GET("/:id", c.GetComment)
-			comments.POST("/comments", c.PostComment)
+			comments.POST("", c.PostComment)
 			comments.PUT("/:id", c.PutComment)
 			comments.DELETE("/:id", c.DeleteComment)
 		}
@@ -59,11 +58,11 @@ func main() {
 		{
 			categories.GET("", c.GetCategories)
 			categories.GET("/:id", c.GetCategory)
-			categories.POST("/categories", c.PostCategory)
+			categories.POST("", c.PostCategory)
 			categories.PUT("/:id", c.PutCategory)
 			categories.DELETE("/:id", c.DeleteCategory)
 		}
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-		router.Run(":8080")
+		router.Run(":5000")
 	}
 }
