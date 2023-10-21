@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -105,10 +106,14 @@ func (c *Controller) PutUser(ctx *gin.Context) {
 	var updateUser model.UpdateUser
 
 	if err := ctx.BindJSON(&updateUser); err != nil {
+		fmt.Println("error")
+		fmt.Println(err)
 		ctx.IndentedJSON(http.StatusBadRequest, err)
 		return
 	}
 	if err := updateUser.Validation(); err != nil {
+		fmt.Println("here")
+		fmt.Println(err)
 		ctx.IndentedJSON(http.StatusBadRequest, err)
 		return
 	}
@@ -119,6 +124,8 @@ func (c *Controller) PutUser(ctx *gin.Context) {
 		Password: updateUser.Password,
 	}
 	if err := user.UpdateUser(); err != nil {
+		fmt.Println("there")
+		fmt.Println(err)
 		ctx.IndentedJSON(http.StatusInternalServerError, err)
 		return
 	}
