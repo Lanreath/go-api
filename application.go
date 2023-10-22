@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	_ "github.com/Lanreath/go-api/docs"
 	"github.com/gin-contrib/cors"
@@ -63,6 +64,8 @@ func main() {
 			categories.DELETE("/:id", c.DeleteCategory)
 		}
 		router.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
-		router.Run(":5000")
+
+		port := os.Getenv("PORT")
+		router.Run(":" + port)
 	}
 }
