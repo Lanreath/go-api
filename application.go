@@ -29,7 +29,7 @@ func main() {
 	router := gin.Default()
 	c := controller.NewController()
 	router.Use(cors.Default())
-	v1 := router.Group("/api/v1")
+	v1 := router.Group("api/v1")
 	{
 		users := v1.Group("/users")
 		{
